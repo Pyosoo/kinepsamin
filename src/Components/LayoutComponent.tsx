@@ -37,13 +37,13 @@ function LayoutComponent({ children } : LayoutComponentProps){
               defaultSelectedKeys={['1']}
             >
               <Menu.Item>
-                <Link to="/">대쉬보드</Link>
+                <Link to="/">메인화면</Link>
               </Menu.Item>
               <Menu.Item>
-                <Link to="/user">사용자 현황</Link>
+                <Link to="/user">이용고객현황</Link>
               </Menu.Item>
               <Menu.Item>
-                <Link to="/notice">공지사항 및 FAQ</Link>
+                <Link to="/notice">공지사항&FAQ</Link>
               </Menu.Item>
             </Menu>
           </Sider>
