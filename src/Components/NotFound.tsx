@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Dashboard(){
+function NotFound(){
     return (
         <div>
-            dashboard
+            NotFound
         </div>
     )
 }
 
-export default Dashboard;
+export default NotFound;

@@ -6,6 +6,9 @@ import {
     LoadingOutlined,
     CloseCircleFilled
 } from '@ant-design/icons';
+import {
+    loginFlow
+} from 'src/apis/apis';
 
 
 function Login() {
@@ -16,17 +19,15 @@ function Login() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
 
-    const onFinish = (values: any) => {
-        setIsLoading(true);
-        if (id === "snstkfka02") {
-            setIsLoading(false);
-            openNotification('로그인에 성공했습니다.', 'success')
-            Cookies.set('isLogin', 'true')
-            navigate('/main', { replace: true });
-
-        } else {
-            setIsLoading(false);
-            openNotification('로그인 정보가 올바르지 않습니다.', 'error')
+    const onFinish = async (values: any) => {
+        try {
+            setIsLoading(true);
+            loginFlow(id, password)
+                .then(r => {
+                    setIsLoading(false)
+                })
+        } catch( err: any ){
+            console.log(err)
         }
     };
 
@@ -45,14 +46,11 @@ function Login() {
         setPassword(value)
     };
 
-    const loginFlow = () => {
-    }
-
-
 
     const openNotification = (message: string, type:string) => {
         notification.open({
             duration: type === "success" ? 3 : 5,
+            message: "",
             description: (
                 <div style={{color:'white', fontWeight:'800'}}>{message}</div>
             ),

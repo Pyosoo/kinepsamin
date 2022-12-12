@@ -25,3 +25,7 @@ code {
   margin: 16px;
   background: rgba(255, 255, 255, 0.3);
 }
+.ant-layout-sider{
+  margin: 15px 0 10px 15px !important;
+  background-color: white !important;
+}

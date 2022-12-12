@@ -4,34 +4,29 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import Login from './Components/Login';
 import Cookies from 'js-cookie';
-import LayoutComponent from './Components/LayoutComponent';
-import Dashboard from './Components/Dashboard';
-import User from './Components/User';
-import Notice from './Components/Notice';
+// import Login from './Components/Login/Login';
+// import Dashboard from './Components/Dashboard/Dashboard';
+// import User from './Components/User/User';
+// import Notice from './Components/Notice/Notice';
+// import LayoutComponent from './Components/LayoutComponent/LayoutComponent';
+import Login from 'src/Components/Login/Login';
+import Dashboard from 'src/Components/Dashboard/Dashboard';
+import Notice from 'src/Components/Notice/Notice';
+import User from 'src/Components/User/User';
+import LayoutComponent from 'src/Components/LayoutComponent/LayoutComponent';
 
 function App() {
 
-  console.log(typeof (Cookies.get('isLogin')))
-
   return (
-    Cookies.get('isLogin') === "true" ?
       <BrowserRouter>
-        <LayoutComponent>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/main" element={<Dashboard />} />
-            <Route path="/user" element={<User />} />
-            <Route path="/notice" element={<Notice />} />
+            <Route path="/" element={<Login />} />
+            <Route path="/dashboard" element={<LayoutComponent><Dashboard /></LayoutComponent>} />
+            <Route path="/user" element={<LayoutComponent><User /></LayoutComponent>} />
+            <Route path="/notice" element={<LayoutComponent><Notice /></LayoutComponent>} />
+            <Route path="/login" element={<Login />} />
           </Routes>
-        </LayoutComponent>
-      </BrowserRouter>
-      :
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-        </Routes>
       </BrowserRouter>
   );
 }
