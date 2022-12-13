@@ -12,9 +12,7 @@ Auth.configure({
 
 export async function loginFlow(username: string, password: string) {
     try {
-        console.log(Auth)
         const user = await Auth.signIn(username, password);
-        console.log(user)
 
         let allCookies = Cookies.get();
         for (let key in allCookies) {

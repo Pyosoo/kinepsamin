@@ -29,3 +29,7 @@ code {
   margin: 15px 0 10px 15px !important;
   background-color: white !important;
 }
+
+.ant-menu-item .ant-menu-item-selected .ant-menu-item-only-child{
+  background-color: rgba(99, 102, 241, 1) !important;
+}

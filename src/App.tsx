@@ -2,9 +2,8 @@ import React from 'react';
 import {
   BrowserRouter,
   Routes,
-  Route,
+  Route
 } from "react-router-dom";
-import Cookies from 'js-cookie';
 // import Login from './Components/Login/Login';
 // import Dashboard from './Components/Dashboard/Dashboard';
 // import User from './Components/User/User';

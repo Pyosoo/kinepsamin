@@ -1,6 +1,15 @@
 import React from 'react';
+import { withSession } from 'src/hoc/withSession';
 
-function Notice(){
+interface NoticeProps {
+    currentPath: string,
+    userToken: object
+}
+
+function Notice(props: NoticeProps){
+    
+    console.log(props)
+
     return (
         <div>
             Notice
@@ -8,4 +17,4 @@ function Notice(){
     )
 }
 
-export default Notice;
+export default withSession(Notice);

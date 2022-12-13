@@ -17,14 +17,13 @@ const { Header, Sider, Content } = Layout;
 
 
 interface LayoutComponentProps {
-  children: ReactNode
+  children: ReactNode,
+  currentPath: string,
+  userToken: object
 }
 
 function LayoutComponent({ children }: LayoutComponentProps) {
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
   return (
     <>
       <Layout>
@@ -51,8 +50,17 @@ function LayoutComponent({ children }: LayoutComponentProps) {
           </Menu>
         </Sider>
         <Layout className="site-layout">
-          <Header style={{ padding: 0, background: colorBgContainer, margin: '15px', display: 'flex' }}>
-            <div 
+          <Header 
+            style={{
+              margin: '16px 16px 10px 16px',
+              padding: '0 24px 0 24px',
+              background: '#F5F5F5',
+            }}
+          >
+            <div
+              className={styles.layoutHeader}
+            >
+              <div 
               className={styles.logout}
               onClick={e => {
                 Cookies.remove('isLogin');
@@ -60,13 +68,15 @@ function LayoutComponent({ children }: LayoutComponentProps) {
               }}>
               로그아웃
             </div>
+            </div>
+            
           </Header>
           <Content
             style={{
               margin: '0px 16px 10px 16px',
               padding: 24,
               minHeight: 280,
-              background: colorBgContainer,
+              background: '#F5F5F5',
             }}
           >
             {children}
