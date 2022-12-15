@@ -4,11 +4,7 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-// import Login from './Components/Login/Login';
-// import Dashboard from './Components/Dashboard/Dashboard';
-// import User from './Components/User/User';
-// import Notice from './Components/Notice/Notice';
-// import LayoutComponent from './Components/LayoutComponent/LayoutComponent';
+import 'react-toastify/dist/ReactToastify.css';
 import Login from 'src/Components/Login/Login';
 import Dashboard from 'src/Components/Dashboard/Dashboard';
 import Notice from 'src/Components/Notice/Notice';

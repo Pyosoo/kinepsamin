@@ -1,0 +1,1 @@
+export const s3url = 'https://cdn.latestk.com/kinepsAdmin/';

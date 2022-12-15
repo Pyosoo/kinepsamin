@@ -4,14 +4,12 @@ import styles from './Dashboard.module.css';
 import Paper from '@mui/material/Paper';
 import { PieChart } from 'react-minimal-pie-chart';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+    s3url
+} from 'src/lib/constant';
 
 
-interface DashboardProps {
-    currentPath: string,
-    userToken: object
-}
-
-function Dashboard(props: DashboardProps) {
+function Dashboard(props:any) {
 
     const data = [
         {
@@ -36,18 +34,23 @@ function Dashboard(props: DashboardProps) {
         },
     ];
 
-    console.log(props)
 
 
     return (
-        <>
+        <div className={styles.root}>
             <div className={styles.line1}>
                 <Paper
                     className={styles.line1_box}
                     elevation={0}
                 >
-                    <div>
-                        123123
+                    <div className={styles.line1_left}>
+                        <img src={s3url+"humanIcon.svg"} alt="" style={{width:'12px', height:'15px'}}/>
+                        <div className={styles.title}>
+                            현재 보유한 회원 수
+                        </div>
+                        <div className={styles.count}>
+                            1,120명
+                        </div>
                     </div>
                     <div style={{ marginLeft: 'auto' }}>
                         <PieChart
@@ -79,8 +82,14 @@ function Dashboard(props: DashboardProps) {
                     elevation={0}
                     className={styles.line1_box}
                 >
-                    <div>
-                        123123
+                    <div className={styles.line1_left}>
+                        <img src={s3url+"humanPlusIcon.svg"} alt="" style={{width:'15px', height:'15px'}}/>
+                        <div className={styles.title}>
+                            현재 보유한 회원 수
+                        </div>
+                        <div className={styles.count}>
+                            1,120명
+                        </div>
                     </div>
                     <div style={{ marginLeft: 'auto' }}>
                         <PieChart
@@ -112,8 +121,14 @@ function Dashboard(props: DashboardProps) {
                     elevation={0}
                     className={styles.line1_box}
                 >
-                    <div>
-                        123123
+                    <div className={styles.line1_left}>
+                        <img src={s3url+"humanminusIcon.svg"} alt="" style={{width:'15px', height:'15px'}}/>
+                        <div className={styles.title}>
+                            현재 보유한 회원 수
+                        </div>
+                        <div className={styles.count}>
+                            1,120명
+                        </div>
                     </div>
                     <div style={{ marginLeft: 'auto' }}>
                         <PieChart
@@ -149,35 +164,41 @@ function Dashboard(props: DashboardProps) {
                     className={styles.line2_box1}
                     elevation={0}
                 >
-                    <div>매출현황 그래프</div>
+                    <div className={styles.line2_title}>
+                        <img src={s3url + "dashboard_purpleGraph.svg"} style={{ width:'24px', height:"24px",  margin:'5px 10px 0 10px' }} alt="" />
+                        매출현황 그래프
+                    </div>
                     <div>
-                    <ResponsiveContainer width="100%" height="100%" >
-                        <AreaChart
-                            width={500}
-                            height={200}
-                            data={data}
-                            style={{marginTop:'50px'}}
-                            margin={{
-                                top: 10,
-                                right: 30,
-                                left: 0,
-                                bottom: 0,
-                            }}
+                        <ResponsiveContainer width="100%" height="100%" >
+                            <AreaChart
+                                width={500}
+                                height={200}
+                                data={data}
+                                style={{ marginTop: '50px' }}
+                                margin={{
+                                    top: 10,
+                                    right: 30,
+                                    left: 0,
+                                    bottom: 0,
+                                }}
                             >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="money" />
-                            <YAxis />
-                            <Tooltip />
-                            <Area type="monotone" dataKey="money" stroke="rgba(255, 207, 104, 1)" fill="#FFFAF0" />
-                        </AreaChart>
-                    </ResponsiveContainer>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="money" />
+                                <YAxis />
+                                <Tooltip />
+                                <Area type="monotone" dataKey="money" stroke="rgba(255, 207, 104, 1)" fill="#FFFAF0" />
+                            </AreaChart>
+                        </ResponsiveContainer>
                     </div>
                 </Paper>
                 <Paper
                     className={styles.line2_box2}
                     elevation={0}
                 >
-                    보유 이용자 수 + 그래프
+                    <div className={styles.line2_title}>
+                        <img src={s3url + "dashboard_cash.svg"} style={{ width:'24px', height:"24px",  margin:'5px 10px 0 10px' }} alt="" />
+                        이번달 정산 예정금액
+                    </div>
                 </Paper>
             </div>
 
@@ -187,16 +208,22 @@ function Dashboard(props: DashboardProps) {
                     className={styles.line3_box1}
                     elevation={0}
                 >
-                    보유 이용자 수 + 그래프
+                    <div className={styles.line2_title}>
+                        <img src={s3url + "dashboard_dollar.svg"} style={{ width:'24px', height:"24px",  margin:'5px 10px 0 10px' }} alt="" />
+                        이번달 정산 내역
+                    </div>
                 </Paper>
                 <Paper
                     className={styles.line3_box2}
                     elevation={0}
                 >
-                    보유 이용자 수 + 그래프
+                    <div className={styles.line2_title}>
+                        <img src={s3url + "dashboard_yellowSpeak.svg"} style={{ width:'24px', height:"24px",  margin:'5px 10px 0 10px' }} alt="" />
+                        벤더 프로필
+                    </div>
                 </Paper>
             </div>
-        </>
+        </div>
     )
 }
 

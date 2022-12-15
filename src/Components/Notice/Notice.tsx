@@ -1,12 +1,7 @@
 import React from 'react';
 import { withSession } from 'src/hoc/withSession';
 
-interface NoticeProps {
-    currentPath: string,
-    userToken: object
-}
-
-function Notice(props: NoticeProps){
+function Notice(props: any){
     
     console.log(props)
 

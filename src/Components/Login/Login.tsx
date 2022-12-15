@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Button, Checkbox, Form, Input, notification } from 'antd';
@@ -9,7 +8,9 @@ import {
 import {
     loginFlow
 } from 'src/apis/apis';
-
+import { ToastContainer, toast } from 'react-toastify';
+import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
     const navigate = useNavigate();
@@ -24,10 +25,16 @@ function Login() {
             setIsLoading(true);
             loginFlow(id, password)
                 .then(r => {
+                    console.log(!r.success)
+                    if(!r.success){
+                        toast.error("로그인 오류", {
+                            position: toast.POSITION.TOP_RIGHT
+                        });
+                    }
                     setIsLoading(false)
                 })
         } catch( err: any ){
-            console.log(err)
+            
         }
     };
 
@@ -47,26 +54,12 @@ function Login() {
     };
 
 
-    const openNotification = (message: string, type:string) => {
-        notification.open({
-            duration: type === "success" ? 3 : 5,
-            message: "",
-            description: (
-                <div style={{color:'white', fontWeight:'800'}}>{message}</div>
-            ),
-            style: {
-                backgroundColor: type === "error" ? 'rgba(255, 71, 126, 1)' : type === "success" ? 'rgba(99, 102, 241, 1)' : 'rgba(9, 198, 171, 1)',
-                color: 'white'
-            },
-            closeIcon: (
-                <CloseCircleFilled style={{color:'white'}} />
-            )
-        });
-    };
-
 
     return (
         <>
+            <ToastContainer 
+                transition={Bounce}
+            />
             <div
                 style={{
                     width: '400px',
@@ -119,10 +112,6 @@ function Login() {
                             onChange={onChangePassword}
                         />
                     </Form.Item>
-
-                    {/* <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-                    <Checkbox>Remember me</Checkbox>
-                </Form.Item> */}
                     {
                         isLoading ?
                             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

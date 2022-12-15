@@ -22,7 +22,6 @@ export async function loginFlow(username: string, password: string) {
         Cookies.set('isLogin', 'true', { expires: MY_COOKIE_MAX_AGE });
         Cookies.set('userAttr', user.attributes)
         Cookies.set('userID', username)
-        // Cookies.set('userID', 'moneyguide')
 
 
         for (let key in user.storage) {
@@ -37,9 +36,16 @@ export async function loginFlow(username: string, password: string) {
             }
         }
         window.location.replace("/dashboard")
+        return {
+            success: true,
+            data: "success"
+        }
     } catch (error) {
-        alert(error)
         console.log('error signing in', error);
+        return {
+            success: false,
+            data: error
+        };
     }
 }
 
