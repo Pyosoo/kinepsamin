@@ -1,18 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { withSession } from 'src/hoc/withSession';
 import styles from './User.module.css';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import CheckBoxChecked from 'src/Components/Checkbox/CheckboxChecked';
 import CheckBoxUnChecked from 'src/Components/Checkbox/CheckboxUnChecked';
+import { s3url } from 'src/lib/constant';
+import { fetchSummary } from 'src/apis/apis';
+import { Input } from 'antd';
+import type { InputRef } from 'antd';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 function User(props: any) {
+
+    useEffect(() => {
+        fetchSummary().then(r => {
+            if(r.success){
+                setVendors(r.data.vendors);
+                setReferrals(r.data.referrals);
+            }
+        })
+    }, [])
+
     
     const [priceOption, setPriceOption] = useState<Array<string>>([]);
     const [funcOption, setFuncOption] = useState<Array<string>>([]);
     const [planOption, setPlanOption] = useState<Array<string>>([]);
+    const [searchVendor, setSearchVendor] = useState<string>('');
+    const [searchReferral, setSearchReferral] = useState<string>('');
+    const [vendors, setVendors] = useState<Array<object>>([]);
+    const [referrals, setReferrals] = useState<Array<object>>([]);
+    const [selectedVendors, setSelectedVendors] = useState<Array<string>>([]);
+    const [selectedReferrals, setSelectedReferrals] = useState<Array<string>>([]);
+    
+    const inputRef = useRef<InputRef>(null);
+    const inputRef2 = useRef<InputRef>(null);
 
     return (
         <>
@@ -21,7 +44,14 @@ function User(props: any) {
                     elevation={0}
                     className={styles.line1}
                 >
-                    <div className={styles.title}>유저검색</div>
+                    <div className={styles.title}>
+                        <img
+                            src={s3url + "user_greenPeople.svg"}
+                            style={{ width:'24px', height:'24px', marginRight:'10px' }}
+                            alt=""
+                        />
+                        <div>유저검색</div>
+                    </div>
                     <div className={styles.line1_container}>
                         <div className={styles.line1_component1}>
                             <div className={styles.line}>
@@ -211,10 +241,57 @@ function User(props: any) {
                             </div>
                         </div>
                         <div className={styles.line1_component2}>
-
+                            <Input
+                                size='large'
+                                ref={inputRef}
+                                prefix={
+                                    searchVendor.length > 0 ? 
+                                    <img src={s3url + "search_black.svg"} alt="" /> 
+                                    :
+                                    <img src={s3url + "search_gray.svg"} alt="" /> 
+                                }
+                                placeholder='Search'
+                                value={searchVendor}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchVendor(e.target.value)}
+                            />
+                            <div>
+                                {
+                                    vendors.map((d,i) => {
+                                        return(
+                                            <div>
+                                                <Checkbox
+                                                    {...label}
+                                                    checked={planOption.includes('premium')}
+                                                    onChange={ (event: React.ChangeEvent<HTMLInputElement>) => {
+                                                        if(event.target.checked){
+                                                            setSelectedVendors(Array.from(new Set([...selectedVendors, ])))
+                                                        } else {
+                                                            setPlanOption([...planOption.filter(d => d !== "premium")])
+                                                        }
+                                                    }}
+                                                    icon={<CheckBoxUnChecked />}
+                                                    checkedIcon={<CheckBoxChecked />}
+                                                />
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
                         </div>
                         <div className={styles.line1_component3}>
-
+                            <Input
+                                size='large'
+                                ref={inputRef2}
+                                prefix={
+                                    searchReferral.length > 0 ? 
+                                    <img src={s3url + "search_black.svg"} alt="" /> 
+                                    :
+                                    <img src={s3url + "search_gray.svg"} alt="" /> 
+                                }
+                                placeholder='Search'
+                                value={searchReferral}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchReferral(e.target.value)}
+                            />
                         </div>
                     </div>
                 </Paper>

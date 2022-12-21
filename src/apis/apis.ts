@@ -1,6 +1,7 @@
 import { Amplify, Auth } from "aws-amplify";
 import Cookies from "js-cookie";
 import jwt_decode from 'jwt-decode';
+import axios from 'axios';
 const MY_COOKIE_MAX_AGE = 365;
 
 Auth.configure({
@@ -9,6 +10,21 @@ Auth.configure({
     region: process.env.REACT_APP_AWS_REGION,
     userPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,
 })
+
+const getApiKeyFromCookie = () => {
+    let AC = Cookies.get();
+    let result = '';
+
+    for (let key in AC) {
+        if (key.includes('idToken') && key.includes(AC['userID'])) {
+            result = jwt_decode(AC[key]);
+        }
+    }
+    result = result['custom:apikey'];
+    return result;
+}
+
+
 
 export async function loginFlow(username: string, password: string) {
     try {
@@ -26,7 +42,7 @@ export async function loginFlow(username: string, password: string) {
 
         for (let key in user.storage) {
             if (key.includes("idToken") && key.includes(username)) {
-                Cookies.set('userToken', user.storage[key])
+                Cookies.set('idToken', user.storage[key])
             }
             if (typeof (user.storage[key]) === "string" && key.includes(username)) {
                 Cookies.set(key, user.storage[key]);
@@ -50,3 +66,24 @@ export async function loginFlow(username: string, password: string) {
 }
 
 
+
+
+export async function fetchSummary() {
+    const fullUrl = "https://api.latestk.com/api/admin";
+
+    return axios.post(fullUrl,
+        {
+        },
+        {
+            params: {
+                action: "getSummary"
+            },
+            headers: {
+                "x-api-key": getApiKeyFromCookie()
+            },
+        }).then(res => {
+            return res.data;
+        }).catch(err => {
+            console.log(err);
+        })
+}

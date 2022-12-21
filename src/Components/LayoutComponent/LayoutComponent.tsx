@@ -13,10 +13,10 @@ const { Header, Sider, Content } = Layout;
 interface LayoutComponentProps {
   children: React.ReactElement,
   currentPath: string,
-  userToken: object
+  idToken: object
 }
 
-function LayoutComponent({ children, currentPath, userToken }: LayoutComponentProps) {
+function LayoutComponent({ children, currentPath, idToken }: LayoutComponentProps) {
   const [collapsed, setCollapsed] = useState(false);
 
 

@@ -1,5 +1,5 @@
 .root{
-    min-width: 1144px;
+    min-width: 1280px;
 }
 .line1{
     width: 97%;
@@ -8,7 +8,7 @@
     border-radius: 10px;
     height: 355px;
     padding: 15px;
-    min-width: 1180px;
+    min-width: 1240px;
 }
 .line2{
     width: 97%;
@@ -20,7 +20,9 @@
     padding: 15px;
 }
 .title{
-    margin-top: 10px;
+    font-size: 17px;
+    display: flex;
+    font-weight: 800;
 }
 .subtitle{
     color: rgba(73, 74, 78, 1);
@@ -49,6 +51,7 @@
     margin-top: 50px;
     max-width: 400px;
     min-width: 250px;
+    padding: 5px;
 }
 .line1_component3{
     width: 30%;
@@ -58,6 +61,7 @@
     margin-top: 50px;
     max-width: 400px;
     min-width: 250px;
+    padding: 5px;
 }
 .line{
     width: 100%;
