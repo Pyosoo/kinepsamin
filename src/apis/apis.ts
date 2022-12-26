@@ -71,9 +71,7 @@ export async function loginFlow(username: string, password: string) {
 export async function fetchSummary() {
     const fullUrl = "https://api.latestk.com/api/admin";
 
-    return axios.post(fullUrl,
-        {
-        },
+    return axios.post(fullUrl, {},
         {
             params: {
                 action: "getSummary"
@@ -87,3 +85,23 @@ export async function fetchSummary() {
             console.log(err);
         })
 }
+
+
+export async function fetchUsers(payload:object) {
+    const fullUrl = "https://api.latestk.com/api/admin";
+
+    return axios.post(fullUrl, payload,
+        {
+            params: {
+                action: "searchUsers"
+            },
+            headers: {
+                "x-api-key": getApiKeyFromCookie()
+            },
+        }).then(res => {
+            return res.data;
+        }).catch(err => {
+            console.log(err);
+        })
+}
+

@@ -15,7 +15,7 @@
     margin-left: auto;
     margin-right: auto;
     border-radius: 10px;
-    height: 500px;
+    height: 600px;
     margin-top: 2.5vw;
     padding: 15px;
 }
@@ -80,4 +80,84 @@
     font-size: 14px;
     color: rgba(130, 130, 130, 1);
     width: max-content;
+}
+
+.vendorBox{
+    height: 180px;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+.vendorItem{
+    display: flex;
+    height: 40px;
+    line-height: 40px;
+}
+.tableDiv{
+    max-height: 400px;
+    overflow-y: auto;
+}
+.pagination{
+    display: block;
+    margin-top: 20px;
+    text-align: right;
+}
+.tableTitle{
+    display: flex;
+    height: 50px;
+    line-height: 50px;
+}
+.tableFunc{
+    display: flex;
+}
+
+
+.text1{
+    font-size: 18px;
+    font-weight: 600;
+    color: #494A4E;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.text2{
+    font-size: 20px;
+    font-weight: 800;
+    color: #8285F4;
+}
+
+
+.calDiv{
+    width: 40px;
+    height: 40px;
+    background-image: url('https://cdn.latestk.com/kinepsAdmin/cal_gray.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0 5px;
+}
+.calDiv:hover{
+    background-image: url('https://cdn.latestk.com/kinepsAdmin/cal_hover.svg');
+    cursor: pointer;
+}
+.scrapDiv{
+    width: 40px;
+    height: 40px;
+    background-image: url('https://cdn.latestk.com/kinepsAdmin/scrap_gray.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0 5px;
+}
+.scrapDiv:hover{
+    background-image: url('https://cdn.latestk.com/kinepsAdmin/scrap_hover.svg');
+    cursor: pointer;
+}
+.creditDiv{
+    width: 40px;
+    height: 40px;
+    background-image: url('https://cdn.latestk.com/kinepsAdmin/credit_gray.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0 5px;
+}
+.creditDiv:hover{
+    background-image: url('https://cdn.latestk.com/kinepsAdmin/credit_hover.svg');
+    cursor: pointer;
 }

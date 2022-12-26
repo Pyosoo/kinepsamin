@@ -22,13 +22,12 @@ export function withSession<P>(WrappedComponent: React.ComponentType<P>) {
       let cur = new Date();
       let curT = cur.getTime();
       if(curT > exp * 1000){
-        console.log("session 만료됨")
+        console.log("session expired")
         console.log(curT, exp*1000);
       } else {
-        console.log("session 유효")
+        console.log("session alive")
         console.log(curT, exp*1000);
         if(lc.pathname === "/" || lc.pathname === "/login"){
-          console.log("here")
           window.location.replace('/dashboard')
         }
       }

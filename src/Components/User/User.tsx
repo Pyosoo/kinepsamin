@@ -6,23 +6,24 @@ import Checkbox from '@mui/material/Checkbox';
 import CheckBoxChecked from 'src/Components/Checkbox/CheckboxChecked';
 import CheckBoxUnChecked from 'src/Components/Checkbox/CheckboxUnChecked';
 import { s3url } from 'src/lib/constant';
-import { fetchSummary } from 'src/apis/apis';
+import { fetchSummary, fetchUsers } from 'src/apis/apis';
 import { Input } from 'antd';
 import type { InputRef } from 'antd';
+import UserTable from './UserTable';
+import { Pagination } from 'antd';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
+interface VendorObject {
+    vendor: string;
+}
+interface ReferralObject {
+    code: string;
+    created_at: string;
+    expiry_at: string;
+}
+
 function User(props: any) {
-
-    useEffect(() => {
-        fetchSummary().then(r => {
-            if(r.success){
-                setVendors(r.data.vendors);
-                setReferrals(r.data.referrals);
-            }
-        })
-    }, [])
-
     
     const [priceOption, setPriceOption] = useState<Array<string>>([]);
     const [funcOption, setFuncOption] = useState<Array<string>>([]);
@@ -34,8 +35,40 @@ function User(props: any) {
     const [selectedVendors, setSelectedVendors] = useState<Array<string>>([]);
     const [selectedReferrals, setSelectedReferrals] = useState<Array<string>>([]);
     
+    const [page, setPage] = useState<number>(1);
+    const [userList, setUserList] = useState<Array<object>>([]);
+
     const inputRef = useRef<InputRef>(null);
     const inputRef2 = useRef<InputRef>(null);
+
+    useEffect(() => {
+        fetchSummary().then(r => {
+            if(r.success){
+                setVendors(r.data.vendors);
+                setReferrals(r.data.referrals);
+            }
+        })
+    }, [])
+
+    useEffect(() => {
+        let param = {
+            'plan': planOption,
+            'referral': selectedReferrals,
+            'vendor': selectedVendors,
+            'page': page,
+            'email': '',
+            'nickname': '',
+            'phone': '',
+            'free': ''
+        }
+
+        fetchUsers(param).then(r => {
+            if(r.success){
+                setUserList(r.data)
+            }
+        })
+    }, [page, planOption, selectedReferrals, selectedVendors])
+
 
     return (
         <>
@@ -254,24 +287,27 @@ function User(props: any) {
                                 value={searchVendor}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchVendor(e.target.value)}
                             />
-                            <div>
+                            <div className={styles.vendorBox}>
                                 {
-                                    vendors.map((d,i) => {
+                                    vendors.filter((ve: VendorObject) => ve.vendor.includes(searchVendor)).map((d: VendorObject, i:number) => {
                                         return(
-                                            <div>
-                                                <Checkbox
+                                            <div className={styles.vendorItem} key={i}>
+                                                <Checkbox   
                                                     {...label}
-                                                    checked={planOption.includes('premium')}
+                                                    checked={selectedVendors.includes(d.vendor)}
                                                     onChange={ (event: React.ChangeEvent<HTMLInputElement>) => {
                                                         if(event.target.checked){
-                                                            setSelectedVendors(Array.from(new Set([...selectedVendors, ])))
+                                                            setSelectedVendors(Array.from(new Set([...selectedVendors, d.vendor])))
                                                         } else {
-                                                            setPlanOption([...planOption.filter(d => d !== "premium")])
+                                                            setSelectedVendors([...selectedVendors.filter(v => v !== d.vendor)])
                                                         }
                                                     }}
                                                     icon={<CheckBoxUnChecked />}
                                                     checkedIcon={<CheckBoxChecked />}
                                                 />
+                                                <div>
+                                                    {d.vendor}
+                                                </div>
                                             </div>
                                         )
                                     })
@@ -292,6 +328,32 @@ function User(props: any) {
                                 value={searchReferral}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchReferral(e.target.value)}
                             />
+                            <div className={styles.vendorBox}>
+                                {
+                                    referrals.filter((ref: ReferralObject) => ref.code.includes(searchReferral)).map((d: ReferralObject, i:number) => {
+                                        return(
+                                            <div className={styles.vendorItem} key={i}>
+                                                <Checkbox   
+                                                    {...label}
+                                                    checked={selectedReferrals.includes(d.code)}
+                                                    onChange={ (event: React.ChangeEvent<HTMLInputElement>) => {
+                                                        if(event.target.checked){
+                                                            setSelectedReferrals(Array.from(new Set([...selectedReferrals, d.code])))
+                                                        } else {
+                                                            setSelectedReferrals([...selectedReferrals.filter(r => r !== d.code)])
+                                                        }
+                                                    }}
+                                                    icon={<CheckBoxUnChecked />}
+                                                    checkedIcon={<CheckBoxChecked />}
+                                                />
+                                                <div>
+                                                    {d.code}
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
                         </div>
                     </div>
                 </Paper>
@@ -299,7 +361,40 @@ function User(props: any) {
                     elevation={0}
                     className={styles.line2}
                 >
-                    유저리스트
+                    <div className={styles.tableTitle}>
+                        <div className={styles.text1}>
+                            검색결과
+                        </div>
+                        <div className={styles.text1}>
+                            총 <span className={styles.text2}>{userList.total}</span>
+                        </div>
+                        <div className={styles.tableFunc}>
+                            <div className={styles.calDiv} />
+                            <div className={styles.scrapDiv} />
+                            <div className={styles.creditDiv} />
+                        </div>
+                    </div>
+                    
+                    <div className={styles.tableDiv}>
+                        <UserTable 
+                            userList={userList}
+                        />
+                    </div>
+                    
+                    <div className={styles.pagination}>
+                        <Pagination 
+                            defaultCurrent={1} 
+                            current={page}
+                            pageSize={20}
+                            showSizeChanger={false}
+                            onChange={(page, pageSize) => {
+                                console.log(page)
+                                setPage(page);
+                            }}
+                            total={userList.total} 
+                        />
+                    </div>
+                    
                 </Paper>
             </div>
         </>
