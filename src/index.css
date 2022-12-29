@@ -11,6 +11,10 @@ body {
   height: 100vh;
 }
 
+.hoverCursor:hover{
+  cursor: pointer;
+}
+
 
 
 .ant-notification-notice{

@@ -8,8 +8,7 @@ import {
 import {
     loginFlow
 } from 'src/apis/apis';
-import { ToastContainer, toast } from 'react-toastify';
-import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {

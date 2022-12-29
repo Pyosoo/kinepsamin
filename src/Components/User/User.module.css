@@ -98,13 +98,12 @@
 }
 .pagination{
     display: block;
-    margin-top: 20px;
+    margin-top: 50px;
     text-align: right;
 }
 .tableTitle{
     display: flex;
-    height: 50px;
-    line-height: 50px;
+    margin-bottom: 30px;
 }
 .tableFunc{
     display: flex;
@@ -116,12 +115,16 @@
     font-weight: 600;
     color: #494A4E;
     margin-left: 5px;
-    margin-right: 5px;
+    margin-right: 30px;
+    height: 45px;
+    line-height: 45px;
 }
 .text2{
     font-size: 20px;
     font-weight: 800;
     color: #8285F4;
+    height: 45px;
+    line-height: 45px;
 }
 
 
@@ -131,7 +134,7 @@
     background-image: url('https://cdn.latestk.com/kinepsAdmin/cal_gray.svg');
     background-position: center;
     background-repeat: no-repeat;
-    margin: 0 5px;
+    margin: 5px 5px 0 5px;
 }
 .calDiv:hover{
     background-image: url('https://cdn.latestk.com/kinepsAdmin/cal_hover.svg');
@@ -143,7 +146,7 @@
     background-image: url('https://cdn.latestk.com/kinepsAdmin/scrap_gray.svg');
     background-position: center;
     background-repeat: no-repeat;
-    margin: 0 5px;
+    margin: 5px 5px 0 5px;
 }
 .scrapDiv:hover{
     background-image: url('https://cdn.latestk.com/kinepsAdmin/scrap_hover.svg');
@@ -155,9 +158,19 @@
     background-image: url('https://cdn.latestk.com/kinepsAdmin/credit_gray.svg');
     background-position: center;
     background-repeat: no-repeat;
-    margin: 0 5px;
+    margin: 5px 5px 0 5px;
 }
 .creditDiv:hover{
     background-image: url('https://cdn.latestk.com/kinepsAdmin/credit_hover.svg');
     cursor: pointer;
+}
+
+
+.searchBar{
+    display: flex;
+    margin-left: auto;
+}
+.searchInput{
+    height: 40px;
+    margin-left: 5px;
 }
