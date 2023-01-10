@@ -33,10 +33,10 @@ const UserTable = ({ userList, selectedUids, setSelectedUids }: PropsType) => {
         {
             title: <div>
                 <Checkbox
-                    checked={userList.users.every(r => selectedUids.includes(r))}
+                    checked={userList.users.every(r => selectedUids.includes(r.uid))}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         if (event.target.checked) {
-                            setSelectedUids(Array.from(new Set([...selectedUids, ...userList.users])))  //수정할것
+                            setSelectedUids(Array.from(new Set([...selectedUids, ...userList.users.map(d => d.uid)])))  //수정할것
                         } else {
                             setSelectedUids(selectedUids.filter(d => userList.users.includes(d)))
                         }
@@ -49,7 +49,6 @@ const UserTable = ({ userList, selectedUids, setSelectedUids }: PropsType) => {
             key: 'checkbox',
             width: 60,
             render: (_, record, index) => <div>
-                <div onClick={e => console.log(index)}>123</div>
                 <Checkbox
                     checked={selectedUids.includes(record.uid)}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {

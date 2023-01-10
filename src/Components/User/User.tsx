@@ -52,7 +52,7 @@ function User(props: any) {
 
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-    const [creditValue, setCreditValue] = useState<stgring>('')
+    const [creditValue, setCreditValue] = useState<string>('')
     const [creditMemo, setCreditMemo] = useState<string>('');
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
